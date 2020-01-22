@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Add User</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container col-4">
+    <label>Dodawanie użytkownika</label>
+    <form th:action="@{/adduser}" th:object="${userToInsert}" method="post">
+        <div class="form-group">
+            <label for="login">Login</label>
+            <input type="text" class="form-control" id="login" th:field="*{login}"  placeholder="Login"
+                   th:required="requied">
+        </div>
+        <div class="form-group">
+            <label for="password">Hasło</label>
+            <input type="password" class="form-control" id="password"  th:field="*{password}" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="imie">Imie</label>
+            <input type="text" class="form-control" id="imie" placeholder="Imie" th:field="*{name}">
+        </div>
+        <div class="form-group">
+            <label for="nazwisko">Nazwisko</label>
+            <input type="text" class="form-control" id="nazwisko" th:field="*{surname}" placeholder="Nazwisko">
+        </div>
+        <button type="submit" class="btn btn-primary">Dodaj</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+    </form>
+</div>
+</body>
+</html>

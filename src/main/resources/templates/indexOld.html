@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body onload="connect()">
+<div class="container col-4">
+    <form action="/users" method="get" class="form form-group">
+        <button type="submit" class="btn btn-success">Szukaj</button>
+    </form>
+    <form action="/adduser" method="get" class="form form-group">
+        <button type="submit" class="btn btn-warning">Dodaj użytkownika</button>
+    </form>
+
+    <a th:href="@{/logout}" class="btn btn-warning">Wyloguj</a>
+</div>
+<hr>
+<div class="container col-4">
+    <label>Chat</label>
+    <div id="answerForm"></div>
+    <div id="answerForm2"></div>
+    <div id="infocontainer"></div>
+    <form th:action="@{/login-process}" method="post"></form>
+</div>
+<div class="container col-6">
+    <div class="form-group">
+        <label for="messageToSend">Wiadomość</label>
+        <input type="text" class="form-control" id="user" name="username" placeholder="User">
+        <input type="text" class="form-control" id="messageToSend" name="message" placeholder="Wiadomość">
+    </div>
+    <button onclick="sendMessage()" class="btn btn-primary">Wyślij Wiadomość</button>
+</div>
+<div class="container-fluid col-4 border-warning" style="overflow-y: scroll; height:400px;">
+    <p id="response"></p>
+</div>
+<script src="js.js"></script>
+<script src="stomp.js"></script>
+</body>
+</html>

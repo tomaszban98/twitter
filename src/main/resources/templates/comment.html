@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WorkWise Html Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/line-awesome.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/line-awesome-font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mCustomScrollbar.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/slick/slick.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/slick/slick-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}">
+</head>
+
+
+<body>
+
+
+<div class="wrapper">
+
+
+    <header>
+        <div class="container">
+            <div class="header-data">
+                <div class="logo">
+                  <!--  <img src="images/logo.png" alt="">-->
+                    <a th:href="@{/}" title=""><img th:src="@{/images/logo.png}" alt=""></a>
+                </div><!--logo end-->
+                <div class="search-bar">
+                    <form>
+                        <input type="text" name="search" placeholder="Search...">
+                        <button type="submit"><i class="la la-search"></i></button>
+                    </form>
+                </div><!--search-bar end-->
+                <nav>
+                    <ul>
+                        <li>
+                            <a th:href="@{/}" title="">
+                                <span><img th:src="@{/images/icon1.png}" alt=""></span>
+                                Strona główna
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/users}" title="">
+                                <span><img th:src="@{/images/icon4.png}" alt=""></span>
+                                Użytkownicy
+                            </a>
+                        </li>
+                  <!--      <li>
+                            <a href="#" title="" class="not-box-open">
+                                <span><img src="images/icon6.png" alt=""></span>
+                                Messages
+                            </a>
+                            <div class="notification-box msg">
+                                <div class="nt-title">
+                                    <h4>Setting</h4>
+                                    <a href="#" title="">Clear all</a>
+                                </div>
+
+                            </div>&lt;!&ndash;notification-box end&ndash;&gt;
+                        </li>-->
+                    </ul>
+                </nav><!--nav end-->
+                <div class="menu-btn">
+                    <a href="#" title=""><i class="fa fa-bars"></i></a>
+                </div><!--menu-btn end-->
+                <div class="user-account">
+                    <div class="user-info">
+                        <img src="http://via.placeholder.com/30x30" alt="">
+                        <a href="#" title="" th:text="${model.get('loggedUser').name}"></a>
+                        <i class="la la-sort-down"></i>
+                    </div>
+                    <div class="user-account-settingss">
+                        <ul class="us-links">
+                            <li><a th:href="@{/settings}" title="">Ustawienia</a></li>
+                        </ul>
+                        <h3 class="tc"><a th:href="@{/logout}" title="">Wyloguj się</a></h3>
+                    </div><!--user-account-settingss end-->
+                </div>
+            </div><!--header-data end-->
+        </div>
+    </header><!--header end-->
+
+
+    <main>
+        <div class="main-section">
+            <div class="container">
+                <div class="main-section-data">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="forum-post-view">
+                                <div class="usr-question">
+                                    <div class="usy-dt">
+                                        <img src="http://via.placeholder.com/50x50" alt="">
+                                        <div class="usy-name" th:each="post: ${model.get('post')}">
+
+                                           <a th:action="@{|/users/${post.getUser().id} |}"> <h3 th:text="${post.getUser().name}+'&nbsp;'+${post.getUser().surname}"/></h3></a>
+                                            <span ><i class="fa fa-clock-o"></i><p style=" width: 85px;"
+                                                                                  th:text="${#dates.format(post.addTime,'dd.MM HH:mm')}"></p></span>
+                                        </div>
+                                    </div>
+                                    <div class="usr_quest" th:each="post: ${model.get('post')}">
+                                        <h3 th:text="${post.title}"></h3>
+
+                                        <p th:text="${post.content}"></p>
+
+                                        <div class="ed-opts" th:if="${session.id.equals(post.getUser().id)}">
+                                            <a href="#" title="" class="ed-opts-open"><i
+                                                    class="la la-ellipsis-v"></i></a>
+                                            <ul class="ed-options">
+                                                <li><a th:href="@{|/editPost/${post.id}|}" title="">Edytuj Post</a></li>
+                                                <li><a th:href="@{|/deletePost/${post.id}|}" title="">Usuń</a></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="comment-section">
+                                           <!-- <h3>03 Comments</h3>-->
+                                            <div class="comment-sec" th:each="coment: ${model.get('comments')}">
+                                                <ul th:each="commentList: ${coment}">
+                                                    <li>
+                                                        <div class="comment-list">
+                                                            <div class="bg-img">
+                                                                <img src="http://via.placeholder.com/40x40" alt="">
+                                                            </div>
+                                                            <div class="comment">
+                                                                <h3 th:text="${commentList.userComments.name}+'&nbsp;'+${commentList.userComments.surname}"/></h3>
+<!--
+                                                                <h3 th:text="${commentList.userComments.name}+' '"></h3>
+-->
+                                                                <span><img src="images/clock.png" alt=""><p style=" width: 85px;"
+                                                                                                            th:text="${#dates.format(commentList.time,'dd.MM HH:mm')}"></p></span>
+
+                                                                <p th:text="${commentList.comment}"></p>
+                                                                <div class="ed-opts" th:if="${session.id.equals(commentList.userComments.id)}">
+                                                                    <a href="#" title="" class="ed-opts-open"><i
+                                                                            class="la la-ellipsis-v"></i></a>
+                                                                    <ul class="ed-options">
+                                                                        <li><a th:href="@{|/editComment/${commentList.id}|}" title="">Edytuj Post</a></li>
+                                                                        <li><a th:href="@{|/deleteComment/${commentList.id}|}" title="">Usuń</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div><!--comment-list end-->
+
+                                                    </li>
+
+                                                </ul>
+
+                                            </div><!--comment-sec end-->
+                                            <div class="post-comment-box">
+                                                <div class="user-poster">
+                                                    <div class="usr-post-img">
+                                                        <img src="http://via.placeholder.com/40x40" alt="">
+                                                    </div>
+                                                    <div class="post_comment_sec">
+                                                        <form th:action="@{/comment}" method="post">
+                                                            <textarea placeholder="Komentarz" name="text"></textarea>
+                                                            <input type="hidden" name="pId" th:value="${post.id}"/>
+                                                            <button type="submit">Dodaj Komentarz</button>
+                                                        </form>
+                                                    </div><!--post_comment_sec end-->
+                                                </div><!--user-poster end-->
+                                            </div><!--post-comment-box end-->
+                                            <div class="next-prev">
+                                                <a href="#" title="" class="fl-left">Preview</a>
+                                                <a href="#" title="" class="fl-right">Next</a>
+                                            </div><!--next-prev end-->
+
+                                        </div>
+
+                                    </div><!--usr_quest end-->
+                                </div><!--usr-question end-->
+                            </div><!--forum-post-view end-->
+
+                        </div>
+                    </div><!--main-ws-sec end-->
+                </div>
+                <div class="col-lg-3 pd-right-none no-pd">
+                    <div class="right-sidebar">
+
+
+                    </div><!--right-sidebar end-->
+                </div>
+            </div>
+        </div><!-- main-section-data end-->
+
+
+    </main>
+
+
+</div><!--theme-layout end-->
+
+
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jqueryCustomScrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/lib/slick/slick.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/scrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+</html>
