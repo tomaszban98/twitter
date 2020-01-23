@@ -30,8 +30,8 @@ public class UsersController {
 
     @Autowired
     private CommentsService commentsService;
-
-
+@Autowired
+private IndexController indexController;
     @GetMapping("/register")
     public ModelAndView getAddUsersView() {
 
@@ -39,10 +39,13 @@ public class UsersController {
     }
 
     @GetMapping("/users")
-    public ModelAndView getAllUsers() {
+    public ModelAndView getAllUsers(HttpSession session) {
+        Map<String, Object> model = new HashMap<String, Object>();
         List<User> users = userService.getAll();
-
-        return new ModelAndView("users", "allUsers", users);
+        User user = userService.getOne(Long.parseLong(session.getAttribute("id").toString()));
+        model.put("loggedUser", user);
+        model.put("users", users);
+        return new ModelAndView("users", "model", model);
     }
 
     @PostMapping("/register")
@@ -90,6 +93,8 @@ public class UsersController {
         if (id == session.getAttribute("id") || id == null) {
             post = postService.getPostsByUserId(Long.parseLong(session.getAttribute("id").toString()));
             user = userService.getOne(Long.parseLong(session.getAttribute("id").toString()));
+
+            model.put("newUsers", indexController.getNewUsers());
             model.put("user", user);
             model.put("loggedUser", user);
             model.put("posts", post);
@@ -100,6 +105,7 @@ public class UsersController {
 
         post = postService.getPostsByUserId(id);
         user = userService.getOne(id);
+        model.put("newUsers", indexController.getNewUsers());
         model.put("user", user);
         model.put("loggedUser", user2);
         model.put("posts", post);

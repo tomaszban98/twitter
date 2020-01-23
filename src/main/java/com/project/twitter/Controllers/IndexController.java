@@ -13,9 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class IndexController {
@@ -44,6 +42,7 @@ public class IndexController {
             user = userService.getOne((long) session.getAttribute("id"));
 
             model.put("loggedUser", user);
+            model.put("newUsers", getNewUsers());
             model.put("user", user);
             model.put("posts", post);
 
@@ -53,6 +52,7 @@ public class IndexController {
             List<Post> post = postService.getPostsByUserId(user.getId());
             session.setAttribute("id", user.getId());
             model.put("loggedUser", user);
+            model.put("newUsers", getNewUsers());
             model.put("user", user);
             model.put("posts", post);
 
@@ -73,6 +73,22 @@ public class IndexController {
         request.getSession().invalidate();
         return "login";
     }
+
+
+     List<User> getNewUsers() {
+        List<User> list = userService.getAll();
+        Collections.reverse(list);
+        List<User> newUsers = new LinkedList<>();
+        if (list.size() >= 5) {
+            for (int i = 0; i < 5; i++) {
+                newUsers.add(list.get(i));
+            }
+            return newUsers;
+        }
+        else{
+            return list;
+        }
+        }
 
 
 }

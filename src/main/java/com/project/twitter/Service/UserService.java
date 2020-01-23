@@ -44,10 +44,6 @@ public class UserService {
     }
 
 
-//    @Query("SELECT u FROM User u WHERE u.login = ")
-//    User findAllActiveUsers() {
-//        return null;
-//    }
 
 
 }

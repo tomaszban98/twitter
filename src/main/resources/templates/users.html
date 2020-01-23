@@ -1,41 +1,149 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
-    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>WorkWise Html Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/line-awesome.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/line-awesome-font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.mCustomScrollbar.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/slick/slick.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/slick/slick-theme.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/responsive.css}">
 </head>
+
+
 <body>
-<div class="container col-8">
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Surname</th>
-            <th scope="col">Login</th>
-            <th scope="col">Details</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${allUsers}">
 
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.surname}"></td>
-            <td th:text="${user.login}"></td>
-            <td>
-                <form action="/userDetails" method="post" th:object="${user}">
-                    <input type="hidden" name="name" th:value="${user.name}"/>
-                    <input type="hidden" name="surname" th:value="${user.surname}"/>
-                    <button type="submit" class="btn btn-dark">Details</button>
 
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="wrapper">
 
-</div>
+
+    <header>
+        <div class="container">
+            <div class="header-data">
+                <div class="logo">
+                    <!--  <img src="images/logo.png" alt="">-->
+                    <a th:href="@{/}" title=""><img th:src="@{/images/logo.png}" alt=""></a>
+                </div><!--logo end-->
+                <div class="search-bar">
+                    <form>
+                        <input type="text" name="search" placeholder="Search...">
+                        <button type="submit"><i class="la la-search"></i></button>
+                    </form>
+                </div><!--search-bar end-->
+                <nav>
+                    <ul>
+                        <li>
+                            <a th:href="@{/}" title="">
+                                <span><img th:src="@{/images/icon1.png}" alt=""></span>
+                                Strona główna
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/users}" title="">
+                                <span><img th:src="@{/images/icon4.png}" alt=""></span>
+                                Użytkownicy
+                            </a>
+                        </li>
+
+                        <li sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/admin}" title="">
+                                <span><img th:src="@{/images/icon4.png}" alt=""></span>
+                                Panel Administratora
+                            </a>
+                        </li>
+
+                        <!--      <li>
+                                  <a href="#" title="" class="not-box-open">
+                                      <span><img src="images/icon6.png" alt=""></span>
+                                      Messages
+                                  </a>
+                                  <div class="notification-box msg">
+                                      <div class="nt-title">
+                                          <h4>Setting</h4>
+                                          <a href="#" title="">Clear all</a>
+                                      </div>
+
+                                  </div>&lt;!&ndash;notification-box end&ndash;&gt;
+                              </li>-->
+                    </ul>
+                </nav><!--nav end-->
+                <div class="menu-btn">
+                    <a href="#" title=""><i class="fa fa-bars"></i></a>
+                </div><!--menu-btn end-->
+                <div class="user-account">
+                    <div class="user-info">
+                        <img src="http://via.placeholder.com/30x30" alt="">
+                        <a href="#" title="" th:text="${model.get('loggedUser').name}"></a>
+                        <i class="la la-sort-down"></i>
+                    </div>
+                    <div class="user-account-settingss">
+                        <ul class="us-links">
+                            <li><a th:href="@{/settings}" title="">Ustawienia</a></li>
+                        </ul>
+                        <h3 class="tc"><a th:href="@{/logout}" title="">Wyloguj się</a></h3>
+                    </div><!--user-account-settingss end-->
+                </div>
+            </div><!--header-data end-->
+        </div>
+    </header><!--header end-->
+
+
+    <section class="companies-info">
+        <div class="container">
+            <div class="company-title">
+                <h3>Wszyscy Użytkownicy</h3>
+            </div><!--company-title end-->
+            <div class="companies-list">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12" th:each="user: ${model.get('users')}">
+                        <div class="company_profile_info" th:each="user: ${user}">
+                            <div class="company-up-info">
+                                <img src="http://via.placeholder.com/91x91" alt="">
+                                <h3 th:text="${user.name}+'&nbsp;'+${user.surname}"></h3>
+                                <!--<h4>Graphic Designer</h4>-->
+                                <ul>
+                                   <!-- <li><a href="#" title="" class="follow">Follow</a></li>
+                                    <li><a href="#" title="" class="message-us"><i class="fa fa-envelope"></i></a></li>
+                                    <li><a href="#" title="" class="hire-us">Hire</a></li>-->
+                                </ul>
+                            </div>
+                            <a th:href="@{|/users/${user.id}|}" title="" class="view-more-pro">Zobacz Profil</a>
+                        </div><!--company_profile_info end-->
+                    </div>
+
+                </div>
+            </div><!--companies-list end-->
+            <div class="process-comm">
+                <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+            </div>
+        </div>
+    </section><!--companies-info end-->
+
+
+</div><!--theme-layout end-->
+
+
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jqueryCustomScrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/lib/slick/slick.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/scrollbar.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
 </body>
 </html>

@@ -55,7 +55,7 @@
                             </a>
                         </li>
 
-                        <li  sec:authorize="hasRole('ADMIN')">
+                        <li sec:authorize="hasRole('ADMIN')">
                             <a th:href="@{/admin}" title="">
                                 <span><img th:src="@{/images/icon4.png}" alt=""></span>
                                 Panel Administratora
@@ -98,7 +98,6 @@
     </header><!--header end-->
 
 
-
     <main>
         <div class="main-section">
             <div class="container">
@@ -115,7 +114,7 @@
                                         </div><!--username-dt end-->
                                         <div class="user-specs" th:each="user: ${model.get('user')}">
                                             <h3 th:text="${user.name}+'&nbsp;'+${user.surname}"></h3>
-                                           <!-- <span>Graphic Designer at Self Employed</span>-->
+                                            <!-- <span>Graphic Designer at Self Employed</span>-->
                                         </div>
                                     </div><!--user-profile end-->
                                     <ul class="user-fw-status">
@@ -123,32 +122,33 @@
                                             <h4>Opis</h4>
                                             <span></span>
                                         </li>
-                                       <!-- <li>
-                                            <h4>Followers</h4>
-                                            <span>155</span>
-                                        </li>-->
+                                        <!-- <li>
+                                             <h4>Followers</h4>
+                                             <span>155</span>
+                                         </li>-->
                                         <!--<li>
                                             <a th:href="@{|/users/${user.id}|}" title="">View Profile</a>
                                         </li>-->
                                     </ul>
                                 </div><!--user-data end-->
-                             <!--   <div class="suggestions full-width">
+                                <div class="suggestions full-width">
                                     <div class="sd-title">
                                         <h3>Użytkownicy</h3>
                                         <i class="la la-ellipsis-v"></i>
-                                    </div>&lt;!&ndash;sd-title end&ndash;&gt;
-                                    <div class="suggestions-list">
-                                        <div class="suggestion-usd">
+                                    </div><!--sd-title end-->
+                                    <div class="suggestions-list" th:each="temp: ${model.get('newUsers')}">
+                                        <div class="suggestion-usd" th:each="newUsers: ${temp}">
                                             <img src="http://via.placeholder.com/35x35" alt="">
                                             <div class="sgt-text">
-                                                <h4>Jessica William</h4>
-                                                <span>Graphic Designer</span>
-                                            </div>
-                                            <span><i class="la la-plus"></i></span>
-                                        </div>
+                                                <h4 th:text="${newUsers.name}+'&nbsp;'+${newUsers.surname}"></h4>
 
-                                    </div>&lt;!&ndash;suggestions-list end&ndash;&gt;
-                                </div>&lt;!&ndash;suggestions end&ndash;&gt;-->
+                                            </div>
+                                            <span><a th:href="@{|/users/${newUsers.id}|}"><i class="la la-plus"></i></a></span>
+
+
+                                        </div>
+                                    </div><!--suggestions-list end-->
+                                </div><!--suggestions end-->
                                 <div class="tags-sec full-width">
 
                                     <div class="cp-sec">
@@ -161,7 +161,7 @@
 
                         <div class="col-lg-6 col-md-8 no-pd" th:each="x: ${model.get('user')}">
                             <div class="main-ws-sec" th:if="${session.id.equals(x.id)}">
-                                <div class="post-topbar"  >
+                                <div class="post-topbar">
                                     <div class="user-picy">
                                         <img src="http://via.placeholder.com/100x100" alt="">
                                     </div>
@@ -221,11 +221,10 @@
                                                 Dodaj komentarz</a></li>
                                         </ul>
                                     </div>
-                                    <!--- KOMENTARZE  -->
-                                    <!--  <div class="job-status-bar" th:each="comment: ${model.get('comments')}">
-                                          <p th:text="${comment.comment}"></p>
-                                      </div>
-                                      -->
+                                    <!--- KOMENTARZE  --><!--
+                                      <div class="job-status-bar" th:each="comment: ${model.get('comments')}">
+                                          <p th:text="${comment.}"></p>
+                                      </div>-->
                                 </div><!--post-bar end-->
 
 
