@@ -115,28 +115,28 @@
                                         </div><!--username-dt end-->
                                         <div class="user-specs" th:each="user: ${model.get('user')}">
                                             <h3 th:text="${user.name}+'&nbsp;'+${user.surname}"></h3>
-                                            <span>Graphic Designer at Self Employed</span>
+                                           <!-- <span>Graphic Designer at Self Employed</span>-->
                                         </div>
                                     </div><!--user-profile end-->
                                     <ul class="user-fw-status">
                                         <li>
-                                            <h4>Following</h4>
-                                            <span>34</span>
+                                            <h4>Opis</h4>
+                                            <span></span>
                                         </li>
-                                        <li>
+                                       <!-- <li>
                                             <h4>Followers</h4>
                                             <span>155</span>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="">View Profile</a>
-                                        </li>
+                                        </li>-->
+                                        <!--<li>
+                                            <a th:href="@{|/users/${user.id}|}" title="">View Profile</a>
+                                        </li>-->
                                     </ul>
                                 </div><!--user-data end-->
-                                <div class="suggestions full-width">
+                             <!--   <div class="suggestions full-width">
                                     <div class="sd-title">
                                         <h3>Użytkownicy</h3>
                                         <i class="la la-ellipsis-v"></i>
-                                    </div><!--sd-title end-->
+                                    </div>&lt;!&ndash;sd-title end&ndash;&gt;
                                     <div class="suggestions-list">
                                         <div class="suggestion-usd">
                                             <img src="http://via.placeholder.com/35x35" alt="">
@@ -147,21 +147,12 @@
                                             <span><i class="la la-plus"></i></span>
                                         </div>
 
-                                    </div><!--suggestions-list end-->
-                                </div><!--suggestions end-->
+                                    </div>&lt;!&ndash;suggestions-list end&ndash;&gt;
+                                </div>&lt;!&ndash;suggestions end&ndash;&gt;-->
                                 <div class="tags-sec full-width">
-                                    <ul>
-                                        <li><a href="#" title="">Help Center</a></li>
-                                        <li><a href="#" title="">About</a></li>
-                                        <li><a href="#" title="">Privacy Policy</a></li>
-                                        <li><a href="#" title="">Community Guidelines</a></li>
-                                        <li><a href="#" title="">Cookies Policy</a></li>
-                                        <li><a href="#" title="">Career</a></li>
-                                        <li><a href="#" title="">Language</a></li>
-                                        <li><a href="#" title="">Copyright Policy</a></li>
-                                    </ul>
+
                                     <div class="cp-sec">
-                                        <img src="images/logo2.png" alt="">
+
                                         <p><img src="images/cp.png" alt="">Copyright 2018</p>
                                     </div>
                                 </div><!--tags-sec end-->
@@ -223,7 +214,7 @@
                                     <div class="job-status-bar">
                                         <ul class="like-com">
                                             <li>
-                                                <a th:href="@{|/like/${post.id}|}"><i class="la la-heart"></i> Like</a>
+                                                <!--<a th:href="@{|/like/${post.id}|}"><i class="la la-heart"></i> Like</a>-->
                                             </li>
                                             <li><a th:href="@{|/comment/${post.id}|}" title="" class="com"><img
                                                     src="images/com.png" alt="">
