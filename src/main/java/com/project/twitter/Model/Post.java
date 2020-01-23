@@ -23,7 +23,7 @@ public class Post {
 
 
 
-     @OneToMany(mappedBy = "postComments")
+/*     @OneToMany(mappedBy = "postComments")
     private List<Comments> comments;
 
     public List<Comments> getComments() {
@@ -32,7 +32,7 @@ public class Post {
 
     public void setComments(List<Comments> comments) {
         this.comments = comments;
-    }
+    }*/
 
     public Long getId() {
         return id;

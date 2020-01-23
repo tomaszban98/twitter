@@ -115,7 +115,7 @@
                                             <a href="#" title="" class="ed-opts-open"><i
                                                     class="la la-ellipsis-v"></i></a>
                                             <ul class="ed-options">
-                                                <li><a th:href="@{|/editPost/${post.id}|}" title="">Edytuj Post</a></li>
+                                                <li><a th:href="@{|/editPost/${post.id}|}" >Edytuj Post</a></li>
                                                 <li><a th:href="@{|/deletePost/${post.id}|}" title="">Usuń</a></li>
                                             </ul>
                                         </div>
@@ -142,7 +142,7 @@
                                                                     <a href="#" title="" class="ed-opts-open"><i
                                                                             class="la la-ellipsis-v"></i></a>
                                                                     <ul class="ed-options">
-                                                                        <li><a th:href="@{|/editComment/${commentList.id}|}" title="">Edytuj Post</a></li>
+                                                                        <li><a th:href="@{|/editComment/${commentList.id}|}" title="">Edytuj Komentarz</a></li>
                                                                         <li><a th:href="@{|/deleteComment/${commentList.id}|}" title="">Usuń</a></li>
                                                                     </ul>
                                                                 </div>
@@ -196,7 +196,6 @@
 
 
 </div><!--theme-layout end-->
-
 
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/popper.js}"></script>

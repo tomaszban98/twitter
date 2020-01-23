@@ -167,10 +167,10 @@
                                 </div><!--tags-sec end-->
                             </div><!--main-left-sidebar end-->
                         </div>
-                        <div class="col-lg-6 col-md-8 no-pd">
 
-                            <div class="main-ws-sec" th:each="post: ${model.get('posts')}">
-                                <div class="post-topbar"  th:if="${session.id.equals(post.getUser().id)}">
+                        <div class="col-lg-6 col-md-8 no-pd" th:each="x: ${model.get('user')}">
+                            <div class="main-ws-sec" th:if="${session.id.equals(x.id)}">
+                                <div class="post-topbar"  >
                                     <div class="user-picy">
                                         <img src="http://via.placeholder.com/100x100" alt="">
                                     </div>
@@ -181,6 +181,7 @@
                                     </div><!--post-st end-->
                                 </div><!--post-st end-->
                             </div><!--post-topbar end-->
+
                             <!--- post section start -->
                             <div class="posts-section">
 

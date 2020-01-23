@@ -1,5 +1,6 @@
 package com.project.twitter.Service;
 
+import com.project.twitter.Model.Comments;
 import com.project.twitter.Model.Post;
 import com.project.twitter.Repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,10 @@ public class PostService {
 
     public Post getOne(long id){
         return postRepository.getOne(id);
+    }
+
+    public void delete(Post post) {
+
+        postRepository.delete(post);
     }
 }

@@ -1,6 +1,7 @@
 package com.project.twitter.Service;
 
 import com.project.twitter.Model.Comments;
+import com.project.twitter.Model.Post;
 import com.project.twitter.Repository.CommentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,17 @@ public class CommentsService {
     }
 
 
+    public Comments getOne(Long id) {
+        return commentsRepository.getOne(id);
+    }
+
+    public void deleteComments(List<Comments> comments) {
+        commentsRepository.deleteInBatch(comments);
+    }
+
+
+    public void  del(Post post){
+        commentsRepository.deleteCommentsByPostComments(post);
+    }
 
 }
