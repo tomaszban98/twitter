@@ -4,8 +4,13 @@ import com.project.twitter.Model.Comments;
 import com.project.twitter.Model.Post;
 import com.project.twitter.Repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,4 +46,10 @@ public class PostService {
 
         postRepository.delete(post);
     }
+
+
+
+
+
+
 }

@@ -48,4 +48,8 @@ public class CommentsService {
         commentsRepository.deleteCommentsByPostComments(post);
     }
 
+    public List<Comments> getAll(){
+        return commentsRepository.findAll();
+    }
+
 }

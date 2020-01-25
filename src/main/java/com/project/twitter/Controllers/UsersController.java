@@ -30,13 +30,9 @@ public class UsersController {
 
     @Autowired
     private CommentsService commentsService;
-@Autowired
-private IndexController indexController;
-/*    @GetMapping("/register")
-    public ModelAndView getAddUsersView() {
+    @Autowired
+    private IndexController indexController;
 
-        return new ModelAndView("register", "userToInsert", new User());
-    }*/
 
     @GetMapping("/users")
     public ModelAndView getAllUsers(HttpSession session) {
@@ -49,20 +45,18 @@ private IndexController indexController;
     }
 
     @PostMapping("/register")
-    public String addUser(@RequestParam String username,String name,String surname, String password) {
-       if(userService.existsByLogin(username)){
-           return "redirect:/login?error=exists";
-       }
-
-
-
-        User user=new User();
+    public String addUser(@RequestParam String username, String name, String surname, String password) {
+        if (userService.existsByLogin(username)) {
+            return "redirect:/login?error=exists";
+        }
+        User user = new User();
         user.setLogin(username);
         user.setName(name);
         user.setSurname(surname);
         user.setPassword(password);
         user.setRole("ROLE_USER");
         user.setDescription("");
+        user.setBan(false);
         userService.saveUser(user);
 
         return "redirect:/index";
@@ -117,7 +111,7 @@ private IndexController indexController;
         model.put("loggedUser", user2);
         model.put("posts", post);
 
-        return new ModelAndView("index", "model", model);
+        return new ModelAndView("userProfile", "model", model);
 
     }
 
@@ -153,9 +147,8 @@ private IndexController indexController;
     }
 
 
-
     @GetMapping("/settings")
-    public ModelAndView settings(HttpSession session){
+    public ModelAndView settings(HttpSession session) {
         User user = userService.getOne((long) session.getAttribute("id"));
 
         return new ModelAndView("settings", "loggedUser", user);
@@ -163,9 +156,9 @@ private IndexController indexController;
 
 
     @PostMapping("/addDesc")
-    public String addDesc(@RequestParam String desc,HttpSession session) {
-       User user =userService.getOne(Long.parseLong(session.getAttribute("id").toString()));
-       user.setDescription(desc);
+    public String addDesc(@RequestParam String desc, HttpSession session) {
+        User user = userService.getOne(Long.parseLong(session.getAttribute("id").toString()));
+        user.setDescription(desc);
         userService.saveUser(user);
         userService.saveUser(user);
         return "redirect:/index";

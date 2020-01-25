@@ -23,44 +23,32 @@ public class IndexController {
     @Autowired
     private PostService postService;
 
-    /*  @RequestMapping("/")
-      public String index(Authentication authentication){
-
-          return authentication.getName();
-      }*/
     @RequestMapping(value = {"/", "/index"})
     public ModelAndView index(HttpSession session, Authentication authentication) {
+
         Map<String, Object> model = new HashMap<String, Object>();
-
-
         String login = authentication.getName();
-        User user;
-        user = userService.getUserByLogin(login);
+        User user = userService.getUserByLogin(login);
+        List<Post> posts;
+        Date date = new Date();
 
-        if (session.getAttribute("id") != null && user.getName().equals(userService.getOne((long) session.getAttribute("id")).getName())) {
-            List<Post> post = postService.getPostsByUserId(Long.parseLong(session.getAttribute("id").toString()));
-            user = userService.getOne((long) session.getAttribute("id"));
+        posts = postService.getPostsByUserId(user.getId());
+        session.setAttribute("id", user.getId());
 
-            model.put("loggedUser", user);
-            model.put("newUsers", getNewUsers());
-            model.put("user", user);
-            model.put("posts", post);
-
-            return new ModelAndView("index", "model", model);
-        } else {
-            user = userService.getUserByLogin(login);
-            List<Post> post = postService.getPostsByUserId(user.getId());
-            session.setAttribute("id", user.getId());
-            model.put("loggedUser", user);
-            model.put("newUsers", getNewUsers());
-            model.put("user", user);
-            model.put("posts", post);
-
-            return new ModelAndView("index", "model", model);
+        if (user.getBlockingDate() != null) {
+           int a = user.getBlockingDate().compareTo(date);
+            if (a > 0) {
+                session.invalidate();
+                return new ModelAndView("redirect:/logout", "user", user);
+            }
         }
 
-
+        model.put("newUsers", getNewUsers());
+        model.put("user", user);
+        model.put("posts", posts);
+        return new ModelAndView("index", "model", model);
     }
+
 
     @GetMapping("/login")
     public String getLoginView() {
@@ -75,7 +63,7 @@ public class IndexController {
     }
 
 
-     List<User> getNewUsers() {
+    List<User> getNewUsers() {
         List<User> list = userService.getAll();
         Collections.reverse(list);
         List<User> newUsers = new LinkedList<>();
@@ -84,11 +72,17 @@ public class IndexController {
                 newUsers.add(list.get(i));
             }
             return newUsers;
-        }
-        else{
+        } else {
             return list;
         }
-        }
+    }
+
+    @GetMapping("/message")
+    public String message() {
+
+        return "indexOld";
+
+    }
 
 
 }

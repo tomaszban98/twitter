@@ -3,6 +3,7 @@ package com.project.twitter.Model;
 import javafx.geometry.Pos;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +31,25 @@ public class User {
     @OneToMany(mappedBy = "userComments")
     private List<Comments> comments;
 
+private boolean ban;
+private Date blockingDate;
+
+
+    public boolean isBan() {
+        return ban;
+    }
+
+    public void setBan(boolean ban) {
+        this.ban = ban;
+    }
+
+    public Date getBlockingDate() {
+        return blockingDate;
+    }
+
+    public void setBlockingDate(Date blockingDate) {
+        this.blockingDate = blockingDate;
+    }
 
     public String getName() {
         return name;
