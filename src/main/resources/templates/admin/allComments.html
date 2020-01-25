@@ -179,7 +179,7 @@
                                             <td th:text="${comment.id}"></td>
                                             <td th:text="${comment.getUserComments().login}"></td>
                                             <td th:text="${comment.comment} "></td>
-                                            <td><a th:href="@{|/editPost/${comment.postComments.id}|}" class="badge badge-warning">Przejdź do posta</a></td>
+                                            <td><a th:href="@{|/comment/${comment.postComments.id}|}" class="badge badge-warning">Przejdź do posta</a></td>
                                             <td>
                                                 <a class="btn btn-danger btn-rounded btn-fw"
                                                    th:href="@{|/admin/deleteComment/${comment.id}|}">Usuń
