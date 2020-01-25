@@ -56,7 +56,7 @@ public class UsersController {
         user.setPassword(password);
         user.setRole("ROLE_USER");
         user.setDescription("");
-        user.setBan(false);
+
         userService.saveUser(user);
 
         return "redirect:/index";
