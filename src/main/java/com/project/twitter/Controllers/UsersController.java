@@ -32,11 +32,11 @@ public class UsersController {
     private CommentsService commentsService;
 @Autowired
 private IndexController indexController;
-    @GetMapping("/register")
+/*    @GetMapping("/register")
     public ModelAndView getAddUsersView() {
 
         return new ModelAndView("register", "userToInsert", new User());
-    }
+    }*/
 
     @GetMapping("/users")
     public ModelAndView getAllUsers(HttpSession session) {
@@ -50,12 +50,19 @@ private IndexController indexController;
 
     @PostMapping("/register")
     public String addUser(@RequestParam String username,String name,String surname, String password) {
+       if(userService.existsByLogin(username)){
+           return "redirect:/login?error=exists";
+       }
+
+
+
         User user=new User();
         user.setLogin(username);
         user.setName(name);
         user.setSurname(surname);
         user.setPassword(password);
         user.setRole("ROLE_USER");
+        user.setDescription("");
         userService.saveUser(user);
 
         return "redirect:/index";
@@ -152,6 +159,16 @@ private IndexController indexController;
         User user = userService.getOne((long) session.getAttribute("id"));
 
         return new ModelAndView("settings", "loggedUser", user);
+    }
+
+
+    @PostMapping("/addDesc")
+    public String addDesc(@RequestParam String desc,HttpSession session) {
+       User user =userService.getOne(Long.parseLong(session.getAttribute("id").toString()));
+       user.setDescription(desc);
+        userService.saveUser(user);
+        userService.saveUser(user);
+        return "redirect:/index";
     }
 
 

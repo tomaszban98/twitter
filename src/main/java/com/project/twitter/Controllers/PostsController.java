@@ -74,7 +74,8 @@ public class PostsController {
     @GetMapping("/editComment/{id}")
     public String getEditComment(@PathVariable("id") Long id, HttpSession session) {
         Comments comment = commentsService.getOne(id);
-
+       User user= userService.getOne(Long.parseLong(session.getAttribute("id").toString()));
+session.setAttribute("loggedUser",user);
         if (comment.getUserComments().getId() != Long.parseLong(session.getAttribute("id").toString())) {
 
             // return new ModelAndView("redirect: comment"+comment.getPostComments().getId());

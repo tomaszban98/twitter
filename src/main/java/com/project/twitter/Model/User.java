@@ -17,7 +17,7 @@ public class User {
     private String password;
     private String login;
     private String role;
-
+    private String description;
 
     @OneToMany(
             mappedBy = "user",
@@ -29,9 +29,6 @@ public class User {
 
     @OneToMany(mappedBy = "userComments")
     private List<Comments> comments;
-
-
-
 
 
     public String getName() {
@@ -93,5 +90,13 @@ public class User {
 
     public void setComments(List<Comments> comments) {
         this.comments = comments;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

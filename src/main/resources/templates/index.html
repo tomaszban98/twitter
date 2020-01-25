@@ -118,9 +118,9 @@
                                         </div>
                                     </div><!--user-profile end-->
                                     <ul class="user-fw-status">
-                                        <li>
+                                        <li  th:each="user: ${model.get('user')}">
                                             <h4>Opis</h4>
-                                            <span></span>
+                                            <span th:text="${user.description}"></span>
                                         </li>
                                         <!-- <li>
                                              <h4>Followers</h4>
@@ -141,7 +141,7 @@
                                             <img src="http://via.placeholder.com/35x35" alt="">
                                             <div class="sgt-text">
                                                 <h4 th:text="${newUsers.name}+'&nbsp;'+${newUsers.surname}"></h4>
-
+                                                <h6 th:text="${newUsers.description}"></h6>
                                             </div>
                                             <span><a th:href="@{|/users/${newUsers.id}|}"><i class="la la-plus"></i></a></span>
 
@@ -282,6 +282,15 @@
 </div><!--post-project-popup end-->
 
 </div><!--theme-layout end-->
+<script type="text/javascript">
+
+    report(0, '<i class="fa fa-ban"></i>');
+
+
+    function report(text) {
+        jQuery("<div class=\"alert alert-danger\"><div class=\"container\">" + text + "</div></div>").appendTo("#infocontainer").delay(200).fadeIn().delay(3500).fadeOut();
+    }
+</script>
 
 
 <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>

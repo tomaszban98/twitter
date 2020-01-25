@@ -21,8 +21,15 @@ public class UserService {
     }
 
     public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+
+            if(user.getId()==null) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+
+            userRepository.save(user);
+
+
+
     }
 
     public void deleteUser(User user) {
@@ -35,6 +42,7 @@ public class UserService {
     }
 
     public User getOne(long id) {
+
         return userRepository.getOne(id);
     }
 
@@ -43,6 +51,10 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Brak usera o loginie: " + login));
     }
 
+    public boolean existsByLogin(String login) {
+
+        return userRepository.existsByLogin(login);
+    }
 
 
 
