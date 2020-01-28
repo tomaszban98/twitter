@@ -144,6 +144,11 @@
                                             </ul>
                                         </div><!--save-stngs end-->
                                     </form>
+                                    <hr>
+                                    <form  th:action="@{/addImg}" method="post" enctype="multipart/form-data">
+                                        <input type="file" name="image" class="file-upload-default">
+                                        <button type="submit" class="btn btn-primary mr-2">Dodaj zdjęcie</button>
+                                    </form>
                                 </div><!--acc-setting end-->
                             </div>
                             <div class="tab-pane fade" id="nav-password" role="tabpanel"

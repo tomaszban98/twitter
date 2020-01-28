@@ -17,6 +17,8 @@ public class User {
     private String login;
     private String role;
     private String description;
+    private String image;
+    private Date blockingDate;
 
     @OneToMany(
             mappedBy = "user",
@@ -30,8 +32,13 @@ public class User {
     private List<Comments> comments;
 
 
-    private Date blockingDate;
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Date getBlockingDate() {
         return blockingDate;

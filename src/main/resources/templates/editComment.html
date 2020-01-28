@@ -107,7 +107,7 @@
                                                         <div class="form-group">
                                                             <label for="con">Komentarz:</label>
                                                             <textarea  name="content" class="form-control" th:text="${session.comment.comment}" id="con"></textarea>
-                                                            <input type="hidden" name="id" th:value="${session.id}"/>
+                                                            <input type="hidden" name="id" th:value="${session.comment.id}"/>
                                                         </div>
                                                         <button type="submit">Aktualizuj</button>
                                                     </form>

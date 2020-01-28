@@ -7,16 +7,20 @@ import com.project.twitter.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.*;
 import java.util.*;
 
 @Controller
 public class IndexController {
+    private static final String LOCATION = "src/main/resources/static/img";
     @Autowired
     private UserService userService;
 
@@ -36,7 +40,7 @@ public class IndexController {
         session.setAttribute("id", user.getId());
 
         if (user.getBlockingDate() != null) {
-           int a = user.getBlockingDate().compareTo(date);
+            int a = user.getBlockingDate().compareTo(date);
             if (a > 0) {
                 session.invalidate();
                 return new ModelAndView("redirect:/logout", "user", user);
@@ -84,5 +88,49 @@ public class IndexController {
 
     }
 
+    @PostMapping("/addImg")
+    public String postAddCampaign(@RequestPart(name = "image") MultipartFile file,HttpSession session) {
 
+        User user = userService.getOne(Long.parseLong(session.getAttribute("id").toString()));
+
+        String imageName = setRandomFileName(file.getOriginalFilename());
+
+        upload(file, imageName);
+       user.setImage(imageName);
+userService.saveUser(user);
+
+        return "redirect:/index";
+    }
+
+    private String setRandomFileName(String spl) {
+        char[] str = new char[100];
+
+        for (int i = 0; i < 7; i++) {
+            str[i] = (char) (((int) (Math.random() * 26)) + (int) 'a');
+        }
+
+
+        String[] splitArray = spl.split("\\.");
+
+        String text = new String(str, 0, 7);
+        return text + '.' + splitArray[1].toLowerCase();
+    }
+
+    public void upload(MultipartFile file, String fileName) {
+
+        if (!new File(LOCATION).exists()) {
+            new File(LOCATION).mkdir();
+        }
+        Path root = Paths.get(LOCATION);
+        try {
+            if (fileName.contains("..")) {
+                throw new Exception();
+            }
+            try (InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, root.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

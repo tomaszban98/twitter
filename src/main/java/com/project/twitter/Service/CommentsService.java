@@ -15,7 +15,8 @@ public class CommentsService {
     private CommentsRepository commentsRepository;
 
     @Autowired
-    public CommentsService(CommentsRepository commentsRepository) {
+    public CommentsService(
+            CommentsRepository commentsRepository) {
         this.commentsRepository = commentsRepository;
     }
 

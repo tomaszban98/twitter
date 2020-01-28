@@ -6,17 +6,12 @@ import com.project.twitter.Model.User;
 import com.project.twitter.Service.CommentsService;
 import com.project.twitter.Service.PostService;
 import com.project.twitter.Service.UserService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.util.DateUtils;
 
-import javax.servlet.http.HttpSession;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Controller

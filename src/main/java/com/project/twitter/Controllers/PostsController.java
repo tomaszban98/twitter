@@ -84,8 +84,8 @@ session.setAttribute("loggedUser",user);
 
 
     @PostMapping("/editComment")
-    public String editComment(String content, String id, HttpSession session) {
-        Comments comment = commentsService.getOne(Long.parseLong(id));
+    public String editComment(String content, long id, HttpSession session) {
+        Comments comment = commentsService.getOne(id);
 
         if (comment.getUserComments().getId() != Long.parseLong(session.getAttribute("id").toString())) {
             session.removeAttribute("comment");
